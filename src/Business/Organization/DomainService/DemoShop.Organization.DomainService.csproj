@@ -6,8 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Libs\DemoShop.Libs.csproj" />
-    <ProjectReference Include="..\ApplicationService\DemoShop.Organization.ApplicationService.csproj" />
-    <ProjectReference Include="..\DomainService\DemoShop.Organization.DomainService.csproj" />
+    <ProjectReference Include="..\Domain\DemoShop.Organization.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

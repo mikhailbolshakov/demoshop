@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DemoShop.Organization.Domain
+namespace DemoShop.Organization.API
 {
-    public class Employee
+    public class EmployeeSharedDto
     {
         /// <summary>
-        /// Employee unique identifier
+        /// Id
         /// </summary>
         public Guid? Id { get; set; }
 
@@ -20,16 +20,5 @@ namespace DemoShop.Organization.Domain
         /// Employee email
         /// </summary>
         public string Email { get; set; }
-
-        /// <summary>
-        /// Employee position
-        /// </summary>
-        public Position Position { get; set; }
-
-        /// <summary>
-        /// Link to organization unit
-        /// </summary>
-        public Guid OrganizationUnitId { get; set; }
-
     }
 }

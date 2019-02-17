@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DemoShop.Organization.Domen.Employee.Enum
+namespace DemoShop.Organization.Domain
 {
     public enum Position
     {
