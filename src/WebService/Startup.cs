@@ -36,12 +36,7 @@ namespace WebApplication1
                     options.Audience = "api1";
                 });
 
-
-
-            var modules = DIModuleProvider.Modules().ToList();
-            modules.ForEach(m => m.Bind(services));
-            var provider = services.BuildServiceProvider();
-            modules.ForEach(m => m.Initialize(provider));
+            services.AddCustomServiceBinding();
 
         }
 
