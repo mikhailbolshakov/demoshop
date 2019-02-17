@@ -7,11 +7,11 @@ $src = (Get-Item -Path ".\" -Verbose).FullName;
 Get-ChildItem $src -directory | where {$_.PsIsContainer} | Select-Object -Property Name | ForEach-Object {
     $cdProjectDir = [string]::Format("cd /d {0}\{1}",$src, $_.Name);
 
-    <# Get project's bundle config file path #>    
+    <# Get project's Startup file path #>    
     $projectDir = [string]::Format("{0}\{1}\Startup.cs",$src, $_.Name); 
     $fileExists = Test-Path $projectDir;
     
-    <# Check project having bundle config file #>
+    <# Check project having Startup file #>
     if($fileExists -eq $true){
         <# Start cmd process and execute 'dotnet run' #>
         $params=@("/C"; $cdProjectDir; " && dotnet run"; )
