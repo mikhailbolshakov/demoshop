@@ -26,18 +26,18 @@ namespace IdentityClient
             var tokenResponse = client.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
                 Address = disco.TokenEndpoint,
-                ClientId = "client",
-                ClientSecret = "secret",
-                Scope = "api1",
+                ClientId = "demoshop_client",
+                ClientSecret = "demoshop_secret",
+                Scope = "demoshop_api",
                 GrantType = "password",
-                UserName = "bob",
-                Password = "password"
+                UserName = "mike",
+                Password = "mike"
                 
             }).Result;
 
             if (tokenResponse.IsError)
             {
-                Console.WriteLine(tokenResponse.Error);
+                Console.WriteLine(tokenResponse.ErrorDescription);
                 return;
             }
 
@@ -48,7 +48,7 @@ namespace IdentityClient
             var apiClient = new HttpClient();
             apiClient.SetBearerToken(tokenResponse.AccessToken);
 
-            var response = apiClient.GetAsync("http://localhost:5001/identity").Result;
+            var response = apiClient.GetAsync("http://localhost:5001/api/employee/1").Result;
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);
@@ -56,7 +56,7 @@ namespace IdentityClient
             else
             {
                 var content =  response.Content.ReadAsStringAsync().Result;
-                Console.WriteLine(JArray.Parse(content));
+                Console.WriteLine(JObject.Parse(content));
             }
         }
     }
