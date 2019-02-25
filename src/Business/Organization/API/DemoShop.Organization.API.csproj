@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Employee\public\" />
+    <Compile Remove="Employee\public\**" />
+    <EmbeddedResource Remove="Employee\public\**" />
+    <None Remove="Employee\public\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="OrganizationStructure\" />
   </ItemGroup>
 

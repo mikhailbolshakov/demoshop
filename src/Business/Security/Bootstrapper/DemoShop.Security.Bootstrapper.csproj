@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Libs\DemoShop.Libs.csproj" />
+    <ProjectReference Include="..\ApplicationService\DemoShop.Security.ApplicationService.csproj" />
+    <ProjectReference Include="..\DomainService\DemoShop.Security.DomainService.csproj" />
+    <ProjectReference Include="..\Infrastructure\DemoShop.Security.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

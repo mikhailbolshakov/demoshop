@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DemoShop.Organization.WebApi.Employee
+namespace DemoShop.Organization.WebApi.Employee.shared
 {
-    [ApiController, Route("api/employee")]
+    [ApiController, Route("api/shared/employee")]
     [Authorize]
     public class EmployeeController : ControllerBase, IEmployeeSharedService
     {

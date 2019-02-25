@@ -22,6 +22,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Business\Organization\Bootstrapper\DemoShop.Organization.Bootstrapper.csproj" />
     <ProjectReference Include="..\Business\Organization\WebApi\DemoShop.Organization.WebApi.csproj" />
+    <ProjectReference Include="..\Business\Security\Bootstrapper\DemoShop.Security.Bootstrapper.csproj" />
+    <ProjectReference Include="..\Business\Security\WebApi\DemoShop.Security.WebApi.csproj" />
     <ProjectReference Include="..\Libs\DemoShop.Libs.csproj" />
   </ItemGroup>
 

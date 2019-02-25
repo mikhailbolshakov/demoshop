@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DemoShop.Libs;
+using DemoShop.Security.Bootstrapper;
 
 namespace WebService
 {
@@ -14,7 +16,9 @@ namespace WebService
         {
             return new IDIModule[] 
             {
-                new OrganizationModule()
+                new SecurityModule(),
+                new OrganizationModule(),
+                new LibModule()
             };
         }
 
