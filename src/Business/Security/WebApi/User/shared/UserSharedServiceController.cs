@@ -8,8 +8,7 @@ using System.Text;
 
 namespace DemoShop.Security.WebApi.User.shared
 {
-    [ApiController, Route("api/security/shared/user")]
-    [Authorize]
+    [ApiController, Authorize, Route("api/security/shared/user")]
     public class UserSharedServiceController : ControllerBase, IUserSharedService
     {
 

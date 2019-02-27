@@ -3,3 +3,4 @@ obj/
 .vs/
 packages/
 src/IdentityServer/identityserver4_log.txt
+src/DBLite/
