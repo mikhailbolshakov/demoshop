@@ -4,8 +4,9 @@ using DemoShop.Security.Domain.User.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace DemoShop.Security.DomainService.User.Service
+namespace DemoShop.Security.DomainService.Users.Service
 {
     public class UserService : IUserService
     {
@@ -27,13 +28,17 @@ namespace DemoShop.Security.DomainService.User.Service
 
         #region IUserService
 
-        public Domain.User.User CreateUpdate(Domain.User.User user)
+        public async Task<User> RegisterUserAsync(User user)
         {
-            _repository.Create(null);
+
+            user.UserId = user.UserId ?? Guid.NewGuid();
+
+            var modifiedObj = _repository.Create(user);
+
             return user;
         }
 
-        public Domain.User.User GetById(Guid userId)
+        public User GetById(Guid userId)
         {
             throw new NotImplementedException();
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DemoShop.Security.API.User.shared.Dto
 {
-    public class UserSharedDto
+    public class User
     {
         /// <summary>
         /// user ID
@@ -12,7 +12,7 @@ namespace DemoShop.Security.API.User.shared.Dto
         public Guid? UserId { get; set; }
 
         /// <summary>
-        /// an unique user name
+        /// an user name
         /// </summary>
         public string UserName { get; set; }
 
@@ -22,7 +22,7 @@ namespace DemoShop.Security.API.User.shared.Dto
         public string Password { get; set; }
 
         /// <summary>
-        /// user email
+        /// user email (must be unique)
         /// </summary>
         public string Email { get; set; }
     }

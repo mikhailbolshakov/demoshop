@@ -1,6 +1,6 @@
 ﻿using DemoShop.Libs.DI;
 using DemoShop.Security.Domain.User.Service;
-using DemoShop.Security.DomainService.User.Service;
+using DemoShop.Security.DomainService.Users.Service;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

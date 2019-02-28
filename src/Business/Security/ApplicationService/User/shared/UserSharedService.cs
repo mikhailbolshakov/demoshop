@@ -1,9 +1,11 @@
-﻿using DemoShop.Security.API.User.shared.Dto;
+﻿using DemoShop.Libs.AutoMapper;
+using DemoShop.Security.API.User.shared.Dto;
 using DemoShop.Security.API.User.shared.Service;
 using DemoShop.Security.Domain.User.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DemoShop.Security.ApplicationService.User.shared
 {
@@ -27,29 +29,17 @@ namespace DemoShop.Security.ApplicationService.User.shared
 
         #region IUserSharedService
 
-        public UserSharedDto CreateUser(UserSharedDto user)
+        public async Task<API.User.shared.Dto.User> RegisterUserAsync(API.User.shared.Dto.User user)
         {
 
-            // TODO: Automapper
-            var domainUser = new Domain.User.User()
-            {
-                UserId = user.UserId,
-                UserName = user.UserName,
-                Email = user.Email,
-                Password = user.Password
-            };
+            // map to domain object
+            var domainObj = UserSharedServiceMapper.Map(user);
 
-            var modifiedDomainUser = _userService.CreateUpdate(domainUser);
+            var modifiedDomainObj = await _userService.RegisterUserAsync(domainObj);
 
-            var modifiedUser = new UserSharedDto()
-            {
-                UserId = modifiedDomainUser.UserId,
-                UserName = modifiedDomainUser.UserName,
-                Email = modifiedDomainUser.Email,
-                Password = modifiedDomainUser.Password
-            };
+            var modifiedObj = UserSharedServiceMapper.Map(modifiedDomainObj);
 
-            return modifiedUser;
+            return modifiedObj;
 
         }
 

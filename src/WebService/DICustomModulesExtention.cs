@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DemoShop.Libs;
 using DemoShop.Security.Bootstrapper;
+using System.Diagnostics;
 
 namespace WebService
 {
@@ -16,9 +17,9 @@ namespace WebService
         {
             return new IDIModule[] 
             {
+                new LibModule(),
                 new SecurityModule(),
-                new OrganizationModule(),
-                new LibModule()
+                new OrganizationModule()
             };
         }
 

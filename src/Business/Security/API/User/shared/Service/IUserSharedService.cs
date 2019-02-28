@@ -2,16 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DemoShop.Security.API.User.shared.Service
 {
     public interface IUserSharedService
     {
         /// <summary>
-        /// creates a new user
+        /// register a new user
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        UserSharedDto CreateUser(UserSharedDto user);
+        Task<Dto.User> RegisterUserAsync(Dto.User user);
     }
 }

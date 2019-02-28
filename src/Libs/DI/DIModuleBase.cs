@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AutoMapper;
+using AutoMapper.Configuration;
+using DemoShop.Libs.AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DemoShop.Libs.DI
@@ -10,12 +13,12 @@ namespace DemoShop.Libs.DI
     {
         protected abstract IEnumerable<IDIComponent> Components();
 
-        public void Bind(IServiceCollection services)
+        public virtual void Bind(IServiceCollection services)
         {
             Components().ToList().ForEach(a => a.Bind(services));
         }
 
-        public void Initialize(IServiceProvider provider)
+        public virtual void Initialize(IServiceProvider provider)
         {
             Components().ToList().ForEach(a => a.Initialize(provider));
         }

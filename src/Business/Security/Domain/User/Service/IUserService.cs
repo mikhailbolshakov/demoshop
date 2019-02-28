@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DemoShop.Security.Domain.User.Service
 {
@@ -14,12 +15,11 @@ namespace DemoShop.Security.Domain.User.Service
         User GetById(Guid userId);
 
         /// <summary>
-        /// if user id is empty, creates a new user
-        /// otherwise updates an existent one
+        /// register a new user
         /// </summary>
         /// <param name="user">user object</param>
         /// <returns>modified user object</returns>
-        User CreateUpdate(User user);
+        Task<User> RegisterUserAsync(User user);
 
     }
 }

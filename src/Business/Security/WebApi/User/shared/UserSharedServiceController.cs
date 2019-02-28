@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DemoShop.Security.WebApi.User.shared
 {
@@ -20,9 +21,9 @@ namespace DemoShop.Security.WebApi.User.shared
         }
 
         [HttpPost("create")]
-        public UserSharedDto CreateUser(UserSharedDto user)
+        public async Task<API.User.shared.Dto.User> RegisterUserAsync(API.User.shared.Dto.User user)
         {
-            return _service.CreateUser(user);
+            return await _service.RegisterUserAsync(user);
         }
 
     }

@@ -5,8 +5,10 @@ using DemoShop.Security.Domain.User;
 using DemoShop.Security.Domain.User.Repository;
 using DemoShop.Libs.Persistence.DbFactory;
 using System.Linq;
+using System.Threading.Tasks;
+using LiteDB;
 
-namespace DemoShop.Security.Infrastructure.User
+namespace DemoShop.Security.Infrastructure.Users
 {
     public class UserRepository : IUserRepository
     {
@@ -18,32 +20,23 @@ namespace DemoShop.Security.Infrastructure.User
             _dbFactory = dbFactory;
         }
 
-        public Domain.User.User Create(Domain.User.User user)
+        public async Task<User> Create(User user)
         {
             using (var db = _dbFactory.CreateDatabase())
             {
-                var collection = db.GetCollection<UserPoco>("user");
 
-                var id = Guid.NewGuid();
+                var bson = UserRepositoryMapper.Map(user);
 
-                var userPoco = new UserPoco
-                {
-                    Id = id,
-                    UserName = "mike"
-                };
-                collection.Insert(userPoco);
+                var userCollection = db.GetCollection<UserBson>("user");
 
-                var result = collection.Find(x => x.Id == id).FirstOrDefault();
+                await Task.Run(() => userCollection.Insert(bson));
+                await Task.Run(() => userCollection.EnsureIndex(x => x.Email));
 
-                if (result == null)
-                    throw new Exception("Insert failed");
+                return UserRepositoryMapper.Map(bson);
 
-                return new Domain.User.User()
-                {
-                    UserId = result.Id,
-                };
             }
 
         }
+
     }
 }
