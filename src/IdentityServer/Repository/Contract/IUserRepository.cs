@@ -10,8 +10,8 @@ namespace IdentityServer.Repository.Contract
 
         bool ValidateCredentials(string username, string password);
 
-        CustomUser FindBySubjectId(string subjectId);
+        User FindBySubjectId(string subjectId);
 
-        CustomUser FindByUsername(string username);
+        User FindByUserName(string userName);
     }
 }

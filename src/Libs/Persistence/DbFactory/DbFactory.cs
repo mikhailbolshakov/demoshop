@@ -6,7 +6,7 @@ using LiteDB;
 
 namespace DemoShop.Libs.Persistence.DbFactory
 {
-    public class DbFactory //: IDbFactory
+    public class DbFactory
     {
 
         private readonly string _connectionString;
@@ -21,6 +21,10 @@ namespace DemoShop.Libs.Persistence.DbFactory
             return new LiteDatabase(_connectionString);
         }
 
+        public LiteRepository CreateRepository()
+        {
+            return new LiteRepository(_connectionString);
+        }
 
     }
 }

@@ -26,6 +26,7 @@ namespace IdentityServer
         {
 
             services.AddIdentityServerCustomConfiguration(Configuration, Environment);
+            services.AddCustomServiceBinding();
 
         }
 

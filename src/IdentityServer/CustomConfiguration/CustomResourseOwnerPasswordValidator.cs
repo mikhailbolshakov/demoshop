@@ -22,7 +22,7 @@ namespace IdentityServer
         {
             if (_userRepository.ValidateCredentials(context.UserName, context.Password))
             {
-                var user = _userRepository.FindByUsername(context.UserName);
+                var user = _userRepository.FindByUserName(context.UserName);
                 context.Result = new GrantValidationResult(user.SubjectId, OidcConstants.AuthenticationMethods.Password);
             }
 

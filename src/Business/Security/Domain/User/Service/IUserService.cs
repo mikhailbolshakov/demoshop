@@ -12,7 +12,7 @@ namespace DemoShop.Security.Domain.User.Service
         /// </summary>
         /// <param name="userId">user id</param>
         /// <returns>user object</returns>
-        User GetById(Guid userId);
+        Task<User> GetByIdAsync(Guid userId);
 
         /// <summary>
         /// register a new user

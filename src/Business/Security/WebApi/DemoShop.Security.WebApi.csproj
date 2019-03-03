@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Libs\DemoShop.Libs.csproj" />
     <ProjectReference Include="..\API\DemoShop.Security.API.csproj" />
   </ItemGroup>
 

@@ -13,5 +13,12 @@ namespace DemoShop.Libs.RestClient.Contract
         /// <param name="request"></param>
         /// <returns></returns>
         Task<DsRestResponse> PostAsync(DsRestRequest request);
+
+        /// <summary>
+        /// makes GET request
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<DsRestResponse> GetAsync(DsRestRequest request);
     }
 }

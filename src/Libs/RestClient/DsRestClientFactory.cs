@@ -18,7 +18,7 @@ namespace DemoShop.Libs.RestClient
         /// <returns></returns>
         public static IDsRestClient WithNoAuth(RestClientParameter param)
         {
-            return null;
+            return new DsRestClient(new HttpClient(), param.RootUrl);
         }
 
         /// <summary>

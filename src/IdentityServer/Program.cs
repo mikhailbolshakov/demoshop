@@ -16,7 +16,7 @@ namespace IdentityServer
         public static void Main(string[] args)
         {
             Console.Title = "IdentityServer4";
-
+            Console.WriteLine($"Running at pid {System.Diagnostics.Process.GetCurrentProcess().Id}");
             CreateWebHostBuilder(args).Build().Run();
         }
 

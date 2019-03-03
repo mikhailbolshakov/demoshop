@@ -14,5 +14,11 @@ namespace DemoShop.Security.API.User.shared.Service
         /// <param name="user"></param>
         /// <returns></returns>
         Task<Dto.User> RegisterUserAsync(Dto.User user);
+
+        /// <summary>
+        /// get user's profile
+        /// </summary>
+        /// <returns></returns>
+        Task<Dto.User> GetUserAsync(string userId);
     }
 }

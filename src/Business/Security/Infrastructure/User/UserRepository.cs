@@ -20,17 +20,17 @@ namespace DemoShop.Security.Infrastructure.Users
             _dbFactory = dbFactory;
         }
 
-        public async Task<User> Create(User user)
+        public async Task<User> CreateAsync(User user)
         {
             using (var db = _dbFactory.CreateDatabase())
             {
 
                 var bson = UserRepositoryMapper.Map(user);
 
-                var userCollection = db.GetCollection<UserBson>("user");
+                var userCol = db.GetCollection<UserBson>("user");
 
-                await Task.Run(() => userCollection.Insert(bson));
-                await Task.Run(() => userCollection.EnsureIndex(x => x.Email));
+                await Task.Run(() => userCol.Insert(bson));
+                await Task.Run(() => userCol.EnsureIndex(x => x.Email));
 
                 return UserRepositoryMapper.Map(bson);
 
@@ -38,5 +38,17 @@ namespace DemoShop.Security.Infrastructure.Users
 
         }
 
+        public async Task<User> GetByIdAsync(Guid userId)
+        {
+            using (var db = _dbFactory.CreateDatabase())
+            {
+
+                var userCol = db.GetCollection<UserBson>("user");
+
+                var bson = await Task.Run(() => userCol.FindById(new BsonValue(userId)));
+
+                return UserRepositoryMapper.Map(bson);
+            }
+        }
     }
 }

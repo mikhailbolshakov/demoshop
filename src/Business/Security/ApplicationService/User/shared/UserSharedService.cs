@@ -35,14 +35,32 @@ namespace DemoShop.Security.ApplicationService.User.shared
             // map to domain object
             var domainObj = UserSharedServiceMapper.Map(user);
 
+            // execute domain service
             var modifiedDomainObj = await _userService.RegisterUserAsync(domainObj);
 
-            var modifiedObj = UserSharedServiceMapper.Map(modifiedDomainObj);
+            // map back from domain result
+            var resp = UserSharedServiceMapper.Map(modifiedDomainObj);
 
-            return modifiedObj;
+            return resp;
 
         }
 
-        #endregion 
+        public async Task<API.User.shared.Dto.User> GetUserAsync(string userId)
+        {
+            Guid userIdGuid;
+
+            if (!Guid.TryParse(userId, out userIdGuid))
+                throw new ArgumentException($"User id parameter is in incorrect format {userId}");
+
+            // get domain object
+            var domainObj = await _userService.GetByIdAsync(userIdGuid);
+
+            // map to shared object
+            var resp = UserSharedServiceMapper.Map(domainObj);
+
+            return resp;
+        }
+
+        #endregion
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IdentityServer.Repository.Contract
 {
-    public class CustomUser
+    public class User
     {
         public string SubjectId { get; set; }
         public string Email { get; set; }

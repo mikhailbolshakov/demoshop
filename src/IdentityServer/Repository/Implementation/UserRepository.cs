@@ -1,4 +1,5 @@
-﻿using IdentityServer.Repository.Contract;
+﻿using DemoShop.Libs.Persistence.DbFactory;
+using IdentityServer.Repository.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,25 +9,17 @@ namespace IdentityServer.Repository.Implementation
 {
     public class UserRepository : IUserRepository
     {
-        private readonly List<CustomUser> _users = new List<CustomUser>
+
+        private readonly DbFactory _dbFactory;
+
+        public UserRepository(DbFactory dbFactory)
         {
-            new CustomUser{
-                SubjectId = "1",
-                UserName = "mike",
-                Password = "mike",
-                Email = "mike@gmail.com"
-            },
-            new CustomUser{
-                SubjectId = "2",
-                UserName = "raphael",
-                Password = "raphael",
-                Email = "raphael@email.ch"
-            },
-        };
+            _dbFactory = dbFactory;
+        }
 
         public bool ValidateCredentials(string username, string password)
         {
-            var user = FindByUsername(username);
+            var user = FindByUserName(username);
             if (user != null)
             {
                 return user.Password.Equals(password);
@@ -35,14 +28,44 @@ namespace IdentityServer.Repository.Implementation
             return false;
         }
 
-        public CustomUser FindBySubjectId(string subjectId)
+        public User FindBySubjectId(string subjectId)
         {
-            return _users.FirstOrDefault(x => x.SubjectId == subjectId);
+
+            using (var db = _dbFactory.CreateDatabase())
+            {
+                var userCol = db.GetCollection<UserBson>("user");
+                var userBson = userCol.FindOne(x => x.UserId == Guid.Parse(subjectId));
+
+                var user = new User()
+                {
+                    SubjectId = userBson.UserId.ToString(),
+                    Email = userBson.Email,
+                    UserName = userBson.UserName,
+                    Password = userBson.Password
+                };
+
+                return user;
+            }
         }
 
-        public CustomUser FindByUsername(string username)
+        public User FindByUserName(string userName)
         {
-            return _users.FirstOrDefault(x => x.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));
+
+            using (var db = _dbFactory.CreateDatabase())
+            {
+                var userCol = db.GetCollection<UserBson>("user");
+                var userBson = userCol.FindOne(x => x.UserName == userName);
+
+                var user = new User()
+                {
+                    SubjectId = userBson.UserId.ToString(),
+                    Email = userBson.Email,
+                    UserName = userBson.UserName,
+                    Password = userBson.Password
+                };
+
+                return user;
+            }
         }
     }
 }

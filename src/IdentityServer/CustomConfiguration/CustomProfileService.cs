@@ -4,6 +4,7 @@ using IdentityServer4.Models;
 using IdentityServer4.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -21,17 +22,16 @@ namespace IdentityServer
             _userRepository = userRepository;
         }
 
-
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
+
             var sub = context.Subject.GetSubjectId();
 
             var user = _userRepository.FindBySubjectId(context.Subject.GetSubjectId());
 
             var claims = new List<Claim>
             {
-                new Claim("role", "demoshop.admin"),
-                new Claim("role", "demoshop.user"),
+                new Claim("user_id", user.SubjectId),
                 new Claim("username", user.UserName),
                 new Claim("email", user.Email)
             };

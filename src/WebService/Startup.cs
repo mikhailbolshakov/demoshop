@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using WebService;
 using System.IdentityModel.Tokens.Jwt;
 using System.Diagnostics;
+using Newtonsoft.Json.Serialization;
 
 namespace WebApplication1
 {
@@ -27,7 +28,9 @@ namespace WebApplication1
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCustomAuthentication(Configuration);
             services.AddCustomServiceBinding();
 

@@ -30,17 +30,16 @@ namespace DemoShop.Security.DomainService.Users.Service
 
         public async Task<User> RegisterUserAsync(User user)
         {
-
             user.UserId = user.UserId ?? Guid.NewGuid();
 
-            var modifiedObj = _repository.Create(user);
+            var modifiedObj = await _repository.CreateAsync(user);
 
             return user;
         }
 
-        public User GetById(Guid userId)
+        public async Task<User> GetByIdAsync(Guid userId)
         {
-            throw new NotImplementedException();
+            return await _repository.GetByIdAsync(userId);
         }
 
         #endregion 
