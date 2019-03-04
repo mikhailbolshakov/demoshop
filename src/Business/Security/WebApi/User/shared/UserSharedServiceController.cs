@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace DemoShop.Security.WebApi.User.shared
 {
     [ApiController, Authorize, Route("api/security/shared/user")]
-    public class UserSharedServiceController : DsControllerBase, IUserSharedService
+    public class UserSharedServiceController : DsControllerBase
     {
 
         private readonly IUserSharedService _service;
@@ -23,13 +23,13 @@ namespace DemoShop.Security.WebApi.User.shared
         }
 
         [HttpGet("get-user/{userId}")]
-        public async Task<API.User.shared.Dto.User> GetUserAsync(string userId)
+        public async Task<ActionResult<API.User.shared.Dto.User>> GetUserAsync(string userId)
         {
             return await _service.GetUserAsync(userId);
         }
 
         [HttpGet("get-current-user")]
-        public async Task<API.User.shared.Dto.User> GetCurrentUserAsync()
+        public async Task<ActionResult<API.User.shared.Dto.User>> GetCurrentUserAsync()
         {
             return await GetUserAsync(ClaimByType("user_id"));
         }

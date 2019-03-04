@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace WebService
 {
-    public static class DICustomModulesExtention
+    public static class CustomDIModulesExtention
     {
         private static IEnumerable<IDIModule> Modules()
         {

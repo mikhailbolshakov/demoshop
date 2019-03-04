@@ -14,6 +14,8 @@ namespace DemoShop.IntegrationTest.TestEnv
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
         public string Scope { get; set; }
+        public string DefaultUser { get; set; }
+        public string DefaultUserPassword { get; set; }
     }
 
     public class ApiClientFactory
@@ -40,12 +42,21 @@ namespace DemoShop.IntegrationTest.TestEnv
 
         }
 
-        public IDsRestClient Api(bool auth = false, string username = null, string pwd = null)
+        public IDsRestClient Api(bool auth = false, string username = null, string password = null)
         {
             if (auth)
             {
                 var identitityServerCfg = new IdentityServerConfiguration();
                 _configuration.GetSection("IdentityServer").Bind(identitityServerCfg);
+
+                string us = username;
+                string pwd = password;
+
+                if (string.IsNullOrEmpty(username))
+                {
+                    us = identitityServerCfg.DefaultUser;
+                    pwd = identitityServerCfg.DefaultUserPassword;
+                }
 
                 var restClient = DsRestClientFactory.WithTokenAuthAsync(new RestClientWithTokenParameter()
                 {
@@ -54,7 +65,7 @@ namespace DemoShop.IntegrationTest.TestEnv
                     ClientId = identitityServerCfg.ClientId,
                     ClientSecret = identitityServerCfg.ClientSecret,
                     Scope = identitityServerCfg.Scope,
-                    UserName = username,
+                    UserName = us,
                     Password = pwd
                 })
                 .Result;

@@ -46,7 +46,9 @@ namespace WebApplication1
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            app.AddCustomExceptionHandling();
+
             app.UseMvc();
         }
     }

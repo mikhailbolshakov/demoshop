@@ -33,11 +33,11 @@ namespace DemoShop.IntegrationTest.Security.User
             var userName = $"user_{Guid.NewGuid().ToString().Substring(0, 6)}";
 
             var user = JObject.FromObject(new
-                {
-                    UserName = userName,
-                    Password = "123",
-                    Email = $"{userName}@demoshop.com"
-                }
+            {
+                UserName = userName,
+                Password = "123",
+                Email = $"{userName}@demoshop.com"
+            }
             );
 
             var rs = await anonymousRestClient.PostAsync(new DsRestRequest()
@@ -50,7 +50,7 @@ namespace DemoShop.IntegrationTest.Security.User
             // check if an anonumous method is availabe
             var rsCheckNoAuth = await anonymousRestClient.PostAsync(new DsRestRequest()
             {
-                ApiUrl = "diagnostic/health-check/no-auth", 
+                ApiUrl = "diagnostic/health-check/no-auth",
                 Payload = "{}"
             });
             Assert.AreEqual(HttpStatusCode.OK, rsCheckNoAuth.StatusCode);
@@ -70,7 +70,7 @@ namespace DemoShop.IntegrationTest.Security.User
             {
                 ApiUrl = "api/security/shared/user/get-current-user"
             });
-            Assert.AreEqual(HttpStatusCode.OK, rsCheckAuth.StatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, rsGetUser.StatusCode);
 
             var userActual = JObject.Parse(rsGetUser.Payload);
             Assert.AreEqual(user["Password"], userActual["Password"]);
@@ -78,5 +78,20 @@ namespace DemoShop.IntegrationTest.Security.User
 
 
         }
+
+        [Test]
+        public async Task UserNotFoudByIdTest()
+        {
+
+            var authRestClient = _apiClientFactory.Api(true);
+
+            // check if current user is correct
+            var rsGetUser = await authRestClient.GetAsync(new DsRestRequest()
+            {
+                ApiUrl = $"api/security/shared/user/get-user/{Guid.NewGuid().ToString()}"
+            });
+            Assert.AreEqual(HttpStatusCode.NotFound, rsGetUser.StatusCode);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using DemoShop.Security.Domain.User;
+﻿using DemoShop.Libs.WebApi.ExceptionHandling.CustomExceptions;
+using DemoShop.Security.Domain.User;
 using DemoShop.Security.Domain.User.Repository;
 using DemoShop.Security.Domain.User.Service;
 using System;
@@ -39,7 +40,11 @@ namespace DemoShop.Security.DomainService.Users.Service
 
         public async Task<User> GetByIdAsync(Guid userId)
         {
-            return await _repository.GetByIdAsync(userId);
+            var user =
+                await _repository.GetByIdAsync(userId)
+                ?? throw new DsNotFoundException($"User isn't found by id: {userId}");
+
+            return user;
         }
 
         #endregion 

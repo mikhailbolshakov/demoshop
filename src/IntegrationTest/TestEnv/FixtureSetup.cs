@@ -10,11 +10,11 @@ namespace DemoShop.IntegrationTest.TestEnv
     public class FixtureSetup
     {
 
-
         [SetUp]
         public void Setup()
         {
 
         }
+
     }
 }
