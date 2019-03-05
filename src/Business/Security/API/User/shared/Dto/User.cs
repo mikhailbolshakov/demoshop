@@ -15,19 +15,21 @@ namespace DemoShop.Security.API.User.shared.Dto
         /// <summary>
         /// an user name (must be unique)
         /// </summary>
-        [Required]
         public string UserName { get; set; }
 
         /// <summary>
         /// password
         /// </summary>
-        [Required]
         public string Password { get; set; }
 
         /// <summary>
         /// user email (must be unique)
         /// </summary>
-        [Required]
         public string Email { get; set; }
+
+        /// <summary>
+        /// user roles
+        /// </summary>
+        public List<string> Roles { get; set; }
     }
 }

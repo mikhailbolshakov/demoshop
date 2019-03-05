@@ -76,7 +76,46 @@ namespace DemoShop.IntegrationTest.Security.User
             Assert.AreEqual(user["Password"], userActual["Password"]);
             Assert.AreEqual(user["Email"], userActual["Email"]);
 
+        }
 
+        [Test]
+        public async Task GrantAndRevokeAdminRoleTest()
+        {
+            var adminRestClient = _apiClientFactory.Api(true);
+
+            // register a new user
+            var userName = $"user_{Guid.NewGuid().ToString().Substring(0, 6)}";
+
+            var user = JObject.FromObject(new
+            {
+                UserName = userName,
+                Password = "123",
+                Email = $"{userName}@demoshop.com"
+            }
+            );
+
+            var rs = await adminRestClient.PostAsync(new DsRestRequest()
+            {
+                ApiUrl = "api/security/shared/user/register",
+                Payload = user.ToString()
+            });
+            Assert.AreEqual(HttpStatusCode.OK, rs.StatusCode);
+
+            user = JObject.Parse(rs.Payload);
+
+            var rsGrantUser = await adminRestClient.PostAsync(new DsRestRequest()
+            {
+                ApiUrl = "api/security/shared/user/grant",
+                Payload = JObject.FromObject(new { UserId = user["UserId"], Roles = new List<string> { "admin" } }).ToString()
+            });
+            Assert.AreEqual(HttpStatusCode.OK, rsGrantUser.StatusCode);
+
+            var rsRevokeUser = await adminRestClient.PostAsync(new DsRestRequest()
+            {
+                ApiUrl = "api/security/shared/user/revoke",
+                Payload = JObject.FromObject(new { UserId = user["UserId"], Roles = new List<string> { "admin" } }).ToString()
+            });
+            Assert.AreEqual(HttpStatusCode.OK, rsRevokeUser.StatusCode);
         }
 
         [Test]

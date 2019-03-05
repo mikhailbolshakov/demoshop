@@ -33,7 +33,8 @@ namespace IdentityServer
             {
                 new Claim("user_id", user.SubjectId),
                 new Claim("username", user.UserName),
-                new Claim("email", user.Email)
+                new Claim("email", user.Email), 
+                new Claim("admin", user.Roles?.SingleOrDefault(r => r == "admin") != null ? "1".ToString() : "0".ToString()),
             };
 
             context.IssuedClaims = claims;

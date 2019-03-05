@@ -21,5 +21,12 @@ namespace DemoShop.Security.Domain.User.Repository
         /// <returns>user object or null if no user found</returns>
         Task<User> GetByIdAsync(Guid userId);
 
+        /// <summary>
+        /// updates existent user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<User> UpdateAsync(User user);
+
     }
 }

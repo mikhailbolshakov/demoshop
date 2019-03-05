@@ -35,9 +35,21 @@ namespace DemoShop.Security.WebApi.User.shared
         }
 
         [HttpPost("register"), AllowAnonymous]
-        public async Task<API.User.shared.Dto.User> RegisterUserAsync(API.User.shared.Dto.User user)
+        public async Task<API.User.shared.Dto.User> RegisterUserAsync(RegisterUserRequest userRequest)
         {
-            return await _service.RegisterUserAsync(user);
+            return await _service.RegisterUserAsync(userRequest);
+        }
+        
+        [HttpPost("grant"), Authorize("Admin")]
+        public async Task<API.User.shared.Dto.User> GrantAsync(UserRolesRequest request)
+        {
+            return await _service.GrantAsync(request);
+        }
+
+        [HttpPost("revoke"), Authorize("Admin")]
+        public async Task<API.User.shared.Dto.User> RevokeAsync(UserRolesRequest request)
+        {
+            return await _service.RevokeAsync(request);
         }
 
     }

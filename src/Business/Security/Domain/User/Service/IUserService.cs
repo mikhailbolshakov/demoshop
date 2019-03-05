@@ -21,5 +21,21 @@ namespace DemoShop.Security.Domain.User.Service
         /// <returns>modified user object</returns>
         Task<User> RegisterUserAsync(User user);
 
+        /// <summary>
+        /// grants roles to the user
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="roles">roles to be granted</param>
+        /// <returns>user with granted roles</returns>
+        Task<User> Grant(Guid userId, List<string> roles);
+
+        /// <summary>
+        /// revokes roles from the user
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="roles">roles</param>
+        /// <returns>user with revoked roles</returns>
+        Task<User> Revoke(Guid userId, List<string> roles);
+
     }
 }

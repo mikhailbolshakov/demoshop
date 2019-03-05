@@ -29,6 +29,8 @@ namespace WebService
                     options.RequireHttpsMetadata = identitityServerCfg.RequireHttps;
                     options.Audience = identitityServerCfg.Audience;
                 });
+
+            services.AddAuthorization(options => options.AddPolicy("Admin", policy => policy.RequireClaim("admin", "1")));
         }
     }
 }

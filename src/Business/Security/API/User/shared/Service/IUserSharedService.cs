@@ -11,14 +11,29 @@ namespace DemoShop.Security.API.User.shared.Service
         /// <summary>
         /// register a new user
         /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        Task<Dto.User> RegisterUserAsync(Dto.User user);
+        /// <param name="user">user request</param>
+        /// <returns>user object</returns>
+        Task<Dto.User> RegisterUserAsync(RegisterUserRequest user);
 
         /// <summary>
         /// get user's profile
         /// </summary>
-        /// <returns></returns>
+        /// <returns>user object</returns>
         Task<Dto.User> GetUserAsync(string userId);
+
+        /// <summary>
+        /// grants an user with given roles
+        /// </summary>
+        /// <param name="request">request</param>
+        /// <returns>user object</returns>
+        Task<Dto.User> GrantAsync(UserRolesRequest request);
+
+        /// <summary>
+        /// revokes an user from given roles
+        /// </summary>
+        /// <param name="request">request</param>
+        /// <returns>user object</returns>
+        Task<Dto.User> RevokeAsync(UserRolesRequest request);
+
     }
 }

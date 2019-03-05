@@ -15,14 +15,14 @@ namespace DemoShop.Security.ApplicationService.User.shared
 
         public void Initialize(MapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<API::User, Domain::User>();
+            cfg.CreateMap<API::RegisterUserRequest, Domain::User>();
             cfg.CreateMap<Domain::User, API::User>();
         }
     }
 
     public static class UserSharedServiceMapper
     {
-        public static Domain.User.User Map(API::User source) => Mapper.Map<API::User, Domain::User>(source);
+        public static Domain.User.User Map(API::RegisterUserRequest source) => Mapper.Map<API::RegisterUserRequest, Domain::User>(source);
         public static API::User Map(Domain::User source) => Mapper.Map<Domain::User, API::User>(source);
     }
 

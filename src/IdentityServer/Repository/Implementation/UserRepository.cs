@@ -41,7 +41,8 @@ namespace IdentityServer.Repository.Implementation
                     SubjectId = userBson.UserId.ToString(),
                     Email = userBson.Email,
                     UserName = userBson.UserName,
-                    Password = userBson.Password
+                    Password = userBson.Password,
+                    Roles = userBson.Roles
                 };
 
                 return user;
@@ -61,7 +62,8 @@ namespace IdentityServer.Repository.Implementation
                     SubjectId = userBson.UserId.ToString(),
                     Email = userBson.Email,
                     UserName = userBson.UserName,
-                    Password = userBson.Password
+                    Password = userBson.Password,
+                    Roles = userBson.Roles
                 };
 
                 return user;

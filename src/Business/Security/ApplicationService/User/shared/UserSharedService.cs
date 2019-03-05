@@ -1,4 +1,6 @@
 ﻿using DemoShop.Libs.AutoMapper;
+using DemoShop.Libs.Extensions.strings;
+using DemoShop.Libs.WebApi.ExceptionHandling.CustomExceptions;
 using DemoShop.Security.API.User.shared.Dto;
 using DemoShop.Security.API.User.shared.Service;
 using DemoShop.Security.Domain.User.Service;
@@ -27,9 +29,13 @@ namespace DemoShop.Security.ApplicationService.User.shared
 
         #endregion
 
+        #region private methods
+
+        #endregion 
+
         #region IUserSharedService
 
-        public async Task<API.User.shared.Dto.User> RegisterUserAsync(API.User.shared.Dto.User user)
+        public async Task<API.User.shared.Dto.User> RegisterUserAsync(RegisterUserRequest user)
         {
 
             // map to domain object
@@ -47,13 +53,30 @@ namespace DemoShop.Security.ApplicationService.User.shared
 
         public async Task<API.User.shared.Dto.User> GetUserAsync(string userId)
         {
-            Guid userIdGuid;
-
-            if (!Guid.TryParse(userId, out userIdGuid))
-                throw new ArgumentException($"User id parameter is in incorrect format {userId}");
-
             // get domain object
-            var domainObj = await _userService.GetByIdAsync(userIdGuid);
+            var domainObj = await _userService.GetByIdAsync(userId.ToGuid());
+
+            // map to shared object
+            var resp = UserSharedServiceMapper.Map(domainObj);
+
+            return resp;
+        }
+
+        public async Task<API.User.shared.Dto.User> GrantAsync(UserRolesRequest request)
+        {
+            // call domain logic
+            var domainObj = await _userService.Grant(request.UserId.ToGuid(), request.Roles);
+
+            // map to shared object
+            var resp = UserSharedServiceMapper.Map(domainObj);
+
+            return resp;
+        }
+
+        public async Task<API.User.shared.Dto.User> RevokeAsync(UserRolesRequest request)
+        {
+            // call domain logic
+            var domainObj = await _userService.Revoke(request.UserId.ToGuid(), request.Roles);
 
             // map to shared object
             var resp = UserSharedServiceMapper.Map(domainObj);
