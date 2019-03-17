@@ -15,11 +15,12 @@ namespace WebService
     {
         private static IEnumerable<IDIModule> Modules()
         {
-            return new IDIModule[] 
+            return new IDIModule[]
             {
                 new LibModule(),
                 new SecurityModule(),
-                new OrganizationModule()
+                new OrganizationModule(),
+                new SaleModule()
             };
         }
 

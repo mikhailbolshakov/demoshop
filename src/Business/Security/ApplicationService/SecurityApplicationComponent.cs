@@ -7,15 +7,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DemoShop.Organization.ApplicationService
+namespace DemoShop.Security.ApplicationService
 {
     public class SecurityApplicationComponent : DIComponentBase
     {
 
         protected override void BindCustom(IServiceCollection services)
         {
-            services.AddScoped<IUserSharedService, UserSharedService>();
-            services.AddScoped<IAutoMapperInitializer, UserSharedServiceMapperInitializer>();
+            services.AddTransient<IUserSharedService, UserSharedService>();
+            services.AddTransient<IAutoMapperInitializer, UserSharedServiceMapperInitializer>();
         }
 
         protected override void InitializeCustom(IServiceProvider provider)

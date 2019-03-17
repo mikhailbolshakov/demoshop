@@ -13,8 +13,8 @@ namespace DemoShop.Security.Infrastructure
     {
         protected override void BindCustom(IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IAutoMapperInitializer, UserRepositoryMapperInitializer>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IAutoMapperInitializer, UserRepositoryMapperInitializer>();
         }
 
         protected override void InitializeCustom(IServiceProvider provider)

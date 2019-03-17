@@ -1,5 +1,5 @@
 ﻿using DemoShop.Libs.DI;
-using DemoShop.Organization.ApplicationService;
+using DemoShop.Security.ApplicationService;
 using DemoShop.Security.DomainService;
 using DemoShop.Security.Infrastructure;
 using System;
