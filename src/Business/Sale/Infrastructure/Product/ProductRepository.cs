@@ -57,7 +57,18 @@ namespace DemoShop.Sale.Infrastructure.Products
             }
 
         }
+        /*
+        public async Task<IEnumerable<Product>> GetProducts()
+        {
+            using (var db = _dbFactory.CreateDatabase())
+            {
+                var productCol = db.GetCollection<ProductBson>(DBCollectionConsts.PRODUCT);
 
+                var bson = await Task.Run(() => productCol.Find(a => a.ProductId == id).SingleOrDefault());
+                return ProductRepositoryMapper.Map(bson);
+            }
+        }
+        */
         public async Task<Product> UpdateAsync(Product product)
         {
             using (var db = _dbFactory.CreateDatabase())

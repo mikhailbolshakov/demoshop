@@ -4,6 +4,7 @@ using DemoShop.Sale.Domain.Products.Repository;
 using DemoShop.Sale.Domain.Products.Service;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DemoShop.Sale.DomainService.Products.Service
@@ -48,6 +49,12 @@ namespace DemoShop.Sale.DomainService.Products.Service
         private void ValidateUpdatePrice(Product product, Price newPrice)
         {
 
+            var minPriceDate = product.Prices.Min(a => a.ValidityStartDate);
+            if(minPriceDate != null && newPrice.ValidityStartDate < minPriceDate)
+                throw new DsValidationException($"Price can be changed at the date before existent one. Product code: {product.ProductCode}");
+
+            if (product.Prices.Any(a => a.ValidityStartDate == newPrice.ValidityStartDate))
+                throw new DsValidationException($"Price can be changed once a day only. Product code: {product.ProductCode}");
         }
 
         #endregion
@@ -85,6 +92,8 @@ namespace DemoShop.Sale.DomainService.Products.Service
 
             // persist changes
             product = await _repository.UpdateAsync(product);
+
+            // TODO: Domain event
 
             return product;
 
